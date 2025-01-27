@@ -1,0 +1,6 @@
+[submodule "copy-of-wanago.io-backend"]
+	path = copy-of-wanago.io-backend
+	url = https://github.com/Radoman-ra/copy-of-wanago.io-backend
+[submodule "copy-of-wanago.io-front"]
+	path = copy-of-wanago.io-front
+	url = https://github.com/Radoman-ra/copy-of-wanago.io-front
