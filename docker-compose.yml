@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:14
+    container_name: my_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: blog_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./copy-of-wanago.io-backend
+      dockerfile: Dockerfile
+    container_name: my_backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "postgresql://user:pass@db:5432/blog_db"
+      SECRET_KEY: "mysecretkey"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./copy-of-wanago.io-front
+      dockerfile: Dockerfile
+    container_name: my_frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
